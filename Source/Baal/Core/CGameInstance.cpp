@@ -34,10 +34,11 @@ FItemData* UCGameInstance::FindItemById(FName Id) const
         return nullptr;
     }
 
-    if (FItemData* const* FoundItem = ItemDataMap.Find(Id))
+    const FItemData* const* FoundItem = ItemDataMap.Find(Id);
+    if (FoundItem)
     {
-        return *FoundItem;
+        return const_cast<FItemData*>(*FoundItem);
     }
 
-    return ItemDataMap[Id];
+    return nullptr;
 }
